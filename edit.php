@@ -27,11 +27,7 @@ if ( $_GET['action'] == 'see' ) {
 		// echo $ligne . '<br /><br />';
 		
 		$file = $ligne; 
-		$contenu = file_get_contents($file); 
-		/*echo '
-			Contenu du fichier $file : 
-			<br><pre>' . $contenu . '</pre>
-		';*/
+		$contenu = file_get_contents($file);
 				echo '
 			<pre>' . $contenu . '</pre>
 		';
@@ -42,64 +38,38 @@ if ( $_GET['action'] == 'see' ) {
 	}
 	
 } else if ( $_GET['action'] == 'edit' ) {
-	echo 'good !';
-}
+	// echo 'good !';
 	
-/*
-	$pname = $_POST['pname'];
-	$ppath = $_POST['ppath'];
-	$browseable = $_POST['browseable'];
-	$guest = $_POST['guest'];
-	$validuser = $_POST['validuser'];
-	$public = $_POST['public'];
-	$adminuser = $_POST['adminuser'];
-	$writable = $_POST['writable'];
-
-	$d1 = '';
-	$d2 = '';
-
-	if ( ( $guest == 'yes' ) OR ( $public = 'yes' ) ) {
-		$d1 = '#';
-		if ( $public == 'yes' ) 
-			$d2 = '#';
+		$file = CONF_DIR . $_GET['file']; 
+		$contenu = file_get_contents($file);
+		echo '
+			<pre>' . $contenu . '</pre>
+		<br /><br />';
+		echo '
+			<form method="post" action="?action=cedit&file=' . $_GET['file'] . '">
+				<textarea wrap="hard" name="file_content" border="2" rows="10" cols="50">' 
+					. $contenu . 
+				'</textarea>
+				<br /><br />
+				<input type="submit" value="Valider les modifications" name="complete"/>
+			</form>
+		';
+} else if ( $_GET['action'] == 'cedit' ) {
+	
+	unlink(CONF_DIR . $_GET['file']);
+	
+	// $file_conf_path = "\n" . 'include = ' . CONF_DIR . $_GET['file'];	
+	$conf_file = fopen(CONF_DIR . $_GET['file'], 'a+'); 
+	// fputs($conf_file, $file_conf_path);	 
+	
+	$ligne = preg_split("/[\n]+/", $_POST['file_content']);
+	foreach( $ligne as $row => $value ) {
+		echo $value."<br />\n";	 
+		fputs($conf_file, $value);
 	}
+	fclose($conf_file);
 
-	$l1 = '[' . $pname . ']' . "\n";
-	$l2 = 'comment = ' . $ppath . "\n";
-	$l3 = 'path = ' . $ppath . "\n";
-	$l4 = 'browseable = ' . $browseable . "\n";
-	$l5 = 'guest ok = ' . $guest . "\n";
-	$l6 = $d1 . 'valid users = ' . $validuser . "\n";
-	$l7 = 'public = ' . $public . "\n";
-	$l8 = $d2 . 'admin users = ' . $adminuser . "\n";
-	$l9 = 'writable = ' . $writable . "\n";
 	
-	echo $l1 . '<br />';
-	echo $l2 . '<br />';
-	echo $l3 . '<br />';
-	echo $l4 . '<br />';
-	echo $l5 . '<br />';
-	echo $l6 . '<br />';
-	echo $l7 . '<br />';
-	echo $l8 . '<br />';
-	echo $l9 . '<br />';
-	
-	$conf_file = fopen(CONF_DIR . $pname . '.conf', 'a+');
-	fputs($conf_file, $l1);
-	fputs($conf_file, $l2);
-	fputs($conf_file, $l3);
-	fputs($conf_file, $l4);
-	fputs($conf_file, $l5);
-	fputs($conf_file, $l6);
-	fputs($conf_file, $l7);
-	fputs($conf_file, $l8);
-	fputs($conf_file, $l9);
-	fclose($conf_file);
-	
-	$file_conf_path = "\n" . 'include = ' . CONF_DIR . $pname . '.conf';	
-	$conf_file = fopen(CONF_DIR . 'smb.conf', 'a+'); 
-	fputs($conf_file, $file_conf_path);	 
-	fclose($conf_file);
-	*/
+}
 
 ?>
