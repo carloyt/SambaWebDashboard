@@ -9,8 +9,7 @@
 			require_once "/var/www/html/smb/conf.php";
 		?>
 		
-		<p>Si vous configurez un partage sans authentification, mettez une valeur bidon dans le champ 'Utilisateur autorisé à accéder au partage".</p>
-		<p>Si vous configurez un partage public, mettez une valeur bidon dans les champ 'Utilisateur autorisé à accéder au partage" et "Administrateur du partage".</p>
+		<p>Si vous configurez un partage sans authentification, <b>ne rien mettre</b> dans le champ 'Utilisateur autorisé à accéder au partage".</p>
 		
 		<form method="POST" action='?action=add'>
 			
@@ -79,51 +78,44 @@ $public = '';
 $adminuser = '';
 $writable = '';
 
-if ( $_GET['action'] == 'add' ) {
-	$pname = $_POST['pname'];
-	$ppath = $_POST['ppath'];
-	$browseable = $_POST['browseable'];
-	$guest = $_POST['guest'];
-	$validuser = $_POST['validuser'];
-	$public = $_POST['public'];
-	$adminuser = $_POST['adminuser'];
-	$writable = $_POST['writable'];
+if( isset($_GET['action']) ) {
+	if ( $_GET['action'] == 'add' ) {
+		$pname = $_POST['pname'];
+		$ppath = $_POST['ppath'];
+		$browseable = $_POST['browseable'];
+		$guest = $_POST['guest'];
+		$validuser = $_POST['validuser'];
+		$public = $_POST['public'];
+		$adminuser = $_POST['adminuser'];
+		$writable = $_POST['writable'];
 
-	$d1 = '';
-	$d2 = '';
-
-	if ( ( $guest == 'yes' ) OR ( $public = 'yes' ) ) {
-		$d1 = '#';
-		if ( $public == 'yes' ) 
-			$d2 = '#';
+		$l1 = '[' . $pname . ']' . "\n";
+		$l2 = 'comment = ' . $ppath . "\n";
+		$l3 = 'path = ' . $ppath . "\n";
+		$l4 = 'browseable = ' . $browseable . "\n";
+		$l5 = 'guest ok = ' . $guest . "\n";
+		$l6 = 'valid users = ' . $validuser . "\n";
+		$l7 = 'public = ' . $public . "\n";
+		$l8 = 'admin users = ' . $adminuser . "\n";
+		$l9 = 'writable = ' . $writable . "\n";
+		
+		$conf_file = fopen(CONF_DIR . $pname . '.conf', 'a+');
+		fputs($conf_file, $l1);
+		fputs($conf_file, $l2);
+		fputs($conf_file, $l3);
+		fputs($conf_file, $l4);
+		fputs($conf_file, $l5);
+		fputs($conf_file, $l6);
+		fputs($conf_file, $l7);
+		fputs($conf_file, $l8);
+		fputs($conf_file, $l9);
+		fclose($conf_file);
+		
+		$file_conf_path = "\n" . 'include = ' . CONF_DIR . $pname . '.conf';	
+		$conf_file = fopen(CONF_DIR . 'smb.conf', 'a+'); 
+		fputs($conf_file, $file_conf_path);	 
+		fclose($conf_file);
+		
 	}
-
-	$l1 = '[' . $pname . ']' . "\n";
-	$l2 = 'comment = ' . $ppath . "\n";
-	$l3 = 'path = ' . $ppath . "\n";
-	$l4 = 'browseable = ' . $browseable . "\n";
-	$l5 = 'guest ok = ' . $guest . "\n";
-	$l6 = $d1 . 'valid users = ' . $validuser . "\n";
-	$l7 = 'public = ' . $public . "\n";
-	$l8 = $d2 . 'admin users = ' . $adminuser . "\n";
-	$l9 = 'writable = ' . $writable . "\n";
-	
-	$conf_file = fopen(CONF_DIR . $pname . '.conf', 'a+');
-	fputs($conf_file, $l1);
-	fputs($conf_file, $l2);
-	fputs($conf_file, $l3);
-	fputs($conf_file, $l4);
-	fputs($conf_file, $l5);
-	fputs($conf_file, $l6);
-	fputs($conf_file, $l7);
-	fputs($conf_file, $l8);
-	fputs($conf_file, $l9);
-	fclose($conf_file);
-	
-	$file_conf_path = "\n" . 'include = ' . CONF_DIR . $pname . '.conf';	
-	$conf_file = fopen(CONF_DIR . 'smb.conf', 'a+'); 
-	fputs($conf_file, $file_conf_path);	 
-	fclose($conf_file);
-	
 }
 ?>
