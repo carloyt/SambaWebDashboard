@@ -23,10 +23,4 @@ SMBSHARESCONFFILE="$SAMBACONFPATH""shares.conf"
 echo "include = $SMBSHARESCONFFILE" >> /etc/samba/smb.conf
 
 cd SambaWebDashboard/files/
-cp add.php $SMBROOTPATH
-cp edit.php $SMBROOTPATH
-cp conf.php $SMBROOTPATH
-
-#cd $SMBROOTPATH
-#mkdir files/
-#cd files/
+cp add.php edit.php conf.php $SMBROOTPATH
