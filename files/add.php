@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>ajoutv3 - Add shared folder to Samba</title>
+		<title>Add shared folder to Samba</title>
 		<meta charset="utf-8" />
 	</head>
 	<body>
@@ -112,7 +112,7 @@ if( isset($_GET['action']) ) {
 		fclose($conf_file);
 		
 		$file_conf_path = "\n" . 'include = ' . CONF_DIR . $pname . '.conf';	
-		$conf_file = fopen(CONF_DIR . 'smb.conf', 'a+'); 
+		$conf_file = fopen(CONF_DIR . 'shares.conf', 'a+'); 
 		fputs($conf_file, $file_conf_path);	 
 		fclose($conf_file);
 		

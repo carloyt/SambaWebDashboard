@@ -14,12 +14,12 @@ require_once "/var/www/html/smb/conf.php";
 if( isset($_GET['action']) ) {
 	if ( $_GET['action'] == 'see' ) {
 		
-		$first_file = fopen(CONF_DIR . 'smb.conf', 'r');
-		$contenu_fichier = fread($first_file, filesize (CONF_DIR . 'smb.conf'));
+		$first_file = fopen(CONF_DIR . 'shares.conf', 'r');
+		$contenu_fichier = fread($first_file, filesize (CONF_DIR . 'shares.conf'));
 		$nblignes =  substr_count($contenu_fichier, "\n");
 		fclose($first_file);
 		
-		$first_file = fopen(CONF_DIR . 'smb.conf', 'r');
+		$first_file = fopen(CONF_DIR . 'shares.conf', 'r');
 		
 		$i = 1;
 		while ($i <= $nblignes) {
@@ -67,8 +67,8 @@ if( isset($_GET['action']) ) {
 		unlink(CONF_DIR . $_GET['file']);
 		$lignesmb = $_GET['ligne'];
 		
-		// $conf_file = fopen(CONF_DIR . 'smb.conf', 'a+');
-		$command = '/bin/sed -i \'' . $lignesmb . 'd\' ' . CONF_DIR . 'smb.conf';
+		// $conf_file = fopen(CONF_DIR . 'shares.conf', 'a+');
+		$command = '/bin/sed -i \'' . $lignesmb . 'd\' ' . CONF_DIR . 'shares.conf';
 		exec($command);
 		
 	}
