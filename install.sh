@@ -1,6 +1,7 @@
 #!/bin/bash
 
-apt-get --assume-yes install apache2 php5 samba
+apt-get update
+apt-get --assume-yes install apache2 php5 samba samba-common-bin
 
 DOCUMENTROOT_DEFAULT="/var/www/html/"
 read -p "Please enter DocumentRoot path with the \"/\" at the end [$DOCUMENTROOT_DEFAULT]: " DOCUMENTROOT
