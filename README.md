@@ -1,5 +1,5 @@
 # SambaWebDashboard
-This is a dashboard for managing youy Samba server.
+This is a dashboard for managing your Samba server.
 
 #  Setup
 You just have to run those lines :
