@@ -12,7 +12,7 @@ Idem for Samba config path. It must be /etc/samba/, except if you have changed s
 
 # What is install.sh ?
 install.sh is a script that :
-  1. Install a web server, Apache;
-  2. Install php5, because the dashboard is developped in PHP;
-  3. Install Samba;
-  4. Create a folder "smb" in /var/www/html (or other path, if you've changed it) 
+  1. Installs a web server, Apache;
+  2. Installs php5, because the dashboard is developped in PHP;
+  3. Installs Samba;
+  4. Creates a folder "smb" in /var/www/html (or other path, if you've changed it) 
