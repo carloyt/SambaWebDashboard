@@ -19,6 +19,8 @@ SAMBACONFPATH="$SAMBACONFPATH""conf/"
 mkdir "$SAMBACONFPATH"
 echo "Le dossier $SAMBACONFPATH a bien été créé."
 touch "$SAMBACONFPATH""shares.conf"
+SMBSHARESCONFFILE="$SAMBACONFPATH""shares.conf"
+echo "include = $SMBSHARESCONFFILE" >> /etc/samba/smb.conf
 
 cd SambaWebDashboard/files/
 cp add.php $SMBROOTPATH
