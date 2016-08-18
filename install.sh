@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get --assume-yes install samba
+#apt-get --assume-yes install samba
 
 DOCUMENTROOT_DEFAULT="/var/www/html/"
 read -p "Please enter DocumentRoot path with the \"/\" at the end [$DOCUMENTROOT_DEFAULT]: " DOCUMENTROOT
@@ -29,4 +29,3 @@ cd files/
 wget https://github.com/carloyt/SambaWebDashboard/blob/master/files/add.php
 wget https://github.com/carloyt/SambaWebDashboard/blob/master/files/conf.php
 wget https://github.com/carloyt/SambaWebDashboard/blob/master/files/edit.php
-
